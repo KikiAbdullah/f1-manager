@@ -27,84 +27,86 @@ class UserController extends Controller
         $this->withTrashed      = true;
     }
 
-    public function formData(){
-        return array('list_role'=>$this->list_role());
+    public function formData()
+    {
+        return array('list_role' => $this->listRolePluckId());
     }
 
     public function ajaxData()
     {
-        if($this->withTrashed){
-            $mapped 			= $this->model->with(['roles'])->withTrashed()->orderBy('id','desc');
-        }else{
-            $mapped 			= $this->model->with(['roles'])->orderBy('id','desc');
+        if ($this->withTrashed) {
+            $mapped             = $this->model->with(['roles'])->withTrashed()->orderBy('id', 'desc');
+        } else {
+            $mapped             = $this->model->with(['roles'])->orderBy('id', 'desc');
         }
-	    return DataTables::of($mapped)
-                        ->addColumn('status', function($data){
-                            return st_aktif($data->deleted_at);
-                        })
-                        ->addColumn('role', function($data){
-                            return $data->roles->first()->name??"";
-                        })
-                        ->filterColumn('role', function($query, $keyword){
-                            $query->whereHas('roles', function($query) use ($keyword){
-                                $query->where('name', 'LIKE', '%'.$keyword.'%');
-                            });
-                        })
-                        ->rawColumns(['status'])
-	                    ->toJson(); 
+        return DataTables::of($mapped)
+            ->addColumn('status', function ($data) {
+                return st_aktif($data->deleted_at);
+            })
+            ->addColumn('role', function ($data) {
+                return $data->roles->first()->name ?? "";
+            })
+            ->filterColumn('role', function ($query, $keyword) {
+                $query->whereHas('roles', function ($query) use ($keyword) {
+                    $query->where('name', 'LIKE', '%' . $keyword . '%');
+                });
+            })
+            ->rawColumns(['status'])
+            ->toJson();
     }
 
-    public function customStore($data, $model){
+    public function customStore($data, $model)
+    {
         $model->assignRole($data['role']);
     }
 
     public function update(Request $request, $id)
-	{
+    {
 
-		try {
-			
-			DB::beginTransaction();
+        try {
 
-			$data  = $this->getRequest();
+            DB::beginTransaction();
 
-            if($this->withTrashed){
-				$model = $this->model->withTrashed()->findOrFail($id);
-			}else{
-				$model = $this->model->findOrFail($id);
-			}
+            $data  = $this->getRequest();
 
-            if($data['password']==""){
+            if ($this->withTrashed) {
+                $model = $this->model->withTrashed()->findOrFail($id);
+            } else {
+                $model = $this->model->findOrFail($id);
+            }
+
+            if ($data['password'] == "") {
                 $model->update([
-                    'name'=>$data['name'],
-                    'email'=>$data['email'],
-                    'nowa'=>$data['nowa'],
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'nowa' => $data['nowa'],
                 ]);
-            }else{
+            } else {
                 $model->update([
-                    'name'=>$data['name'],
-                    'email'=>$data['email'],
-                    'nowa'=>$data['nowa'],
-                    'password'=>$data['password'],
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'nowa' => $data['nowa'],
+                    'password' => $data['password'],
                 ]);
             }
-            
-            if($data['role']<>1){
-                if($model->id==1){
+
+            if ($data['role'] <> 1) {
+                if ($model->id == 1) {
                     $error = ValidationException::withMessages([
                         'SUPERADMIN' => 'Can\'t disable or change roles to this user :)'
-                        ]);
-                        throw $error;
-                    }
+                    ]);
+                    throw $error;
+                }
             }
             $model->syncRoles($data['role']);
-            
-            if($data['deleted_at_baru']=="1"){
+
+            if ($data['deleted_at_baru'] == "1") {
                 $model->restore();
-            }else{
+            } else {
                 //SUPERADMIN ID 1
-                if($model->id==1){
-                $error = ValidationException::withMessages([
-                    'SUPERADMIN' => 'Can\'t disable or change roles to this user :)'
+                if ($model->id == 1) {
+                    $error = ValidationException::withMessages([
+                        'SUPERADMIN' => 'Can\'t disable or change roles to this user :)'
                     ]);
                     throw $error;
                 }
@@ -112,77 +114,72 @@ class UserController extends Controller
             }
 
             $model->save();
-            
-			$log_helper 	= new LogHelper;
 
-			$log_helper->storeLog('edit', $model->id,$this->subtitle);
+            $log_helper     = new LogHelper;
+
+            $log_helper->storeLog('edit', $model->id, $this->subtitle);
 
             DB::commit();
 
-			if($request->ajax()){
-				$response           = [
-					'status'            => true,
-					'msg'               => $this->redirectSuccess(__FUNCTION__, true),
-				];
-				return response()->json($response);
-			}else{
-				return $this->redirectSuccess(__FUNCTION__, false);
-			}
-
-		} catch (Exception $e) {
-			DB::rollback();
-			if($request->ajax()){
-				$response           = [
-					'status'            => false,
-					'msg'               => $e->getMessage(),
-				];
-				return response()->json($response);
-			}else{
-				return $this->redirectBackWithError($e->getMessage());
-			}
-
-		}
-	}
+            if ($request->ajax()) {
+                $response           = [
+                    'status'            => true,
+                    'msg'               => $this->redirectSuccess(__FUNCTION__, true),
+                ];
+                return response()->json($response);
+            } else {
+                return $this->redirectSuccess(__FUNCTION__, false);
+            }
+        } catch (Exception $e) {
+            DB::rollback();
+            if ($request->ajax()) {
+                $response           = [
+                    'status'            => false,
+                    'msg'               => $e->getMessage(),
+                ];
+                return response()->json($response);
+            } else {
+                return $this->redirectBackWithError($e->getMessage());
+            }
+        }
+    }
 
     public function destroy($id)
-	{
-		try {
-			
-			DB::beginTransaction();
+    {
+        try {
 
-            if($id==1){
+            DB::beginTransaction();
+
+            if ($id == 1) {
                 $error = ValidationException::withMessages([
                     'SUPERADMIN' => 'Can\'t disable or change roles to this user :)'
-                    ]);
-                    throw $error;
+                ]);
+                throw $error;
             }
-			if($this->withTrashed){
-				$model = $this->model->withTrashed()->with($this->relation)->findOrFail($id);
-			}else{
-				$model = $this->model->with($this->relation)->findOrFail($id);
-			}
-			
-			if (method_exists($this, 'customDestroy')) {
-				$this->customDestroy($model);
-			}
+            if ($this->withTrashed) {
+                $model = $this->model->withTrashed()->with($this->relation)->findOrFail($id);
+            } else {
+                $model = $this->model->with($this->relation)->findOrFail($id);
+            }
 
-			$log_helper 	= new LogHelper;
+            if (method_exists($this, 'customDestroy')) {
+                $this->customDestroy($model);
+            }
 
-			$log_helper->storeLog('delete', $model->no??$model->id,$this->subtitle);
+            $log_helper     = new LogHelper;
 
-			$model->delete();
+            $log_helper->storeLog('delete', $model->no ?? $model->id, $this->subtitle);
 
-			DB::commit();
+            $model->delete();
 
-			return $this->redirectSuccess(__FUNCTION__, false);
+            DB::commit();
 
-		} catch (Exception $e) {
-			
-			DB::rollback();
+            return $this->redirectSuccess(__FUNCTION__, false);
+        } catch (Exception $e) {
 
-			return $this->redirectBackWithError($e->getMessage());
+            DB::rollback();
 
-		}
-	}
-
+            return $this->redirectBackWithError($e->getMessage());
+        }
+    }
 }

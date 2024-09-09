@@ -12,12 +12,12 @@ $(document).on('select2:open', () => {
 $(function () {
     $(".select").select2();
 
-    $('.daterange-single').daterangepicker({
-        singleDatePicker: true,
-        locale: {
-            format: 'DD-MM-YYYY'
-        }
-    });
+    // $('.daterange-single').daterangepicker({
+    //     singleDatePicker: true,
+    //     locale: {
+    //         format: 'DD-MM-YYYY'
+    //     }
+    // });
 
     $("input.uang").keyup(function (event) {
 
@@ -59,7 +59,7 @@ $(function () {
     }, 6000);
 });
 
-var swalInit = swal.mixin({
+var swalInit = Swal.mixin({
     buttonsStyling: false,
     customClass: {
         confirmButton: 'btn btn-primary',

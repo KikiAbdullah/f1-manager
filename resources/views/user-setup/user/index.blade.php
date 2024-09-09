@@ -4,38 +4,25 @@
 @endsection
 
 @section('content')
-    <!-- Page header -->
-    <div class="page-header">
-        <div class="page-header-content d-lg-flex">
-            <div class="d-flex">
-                <h4 class="page-title mb-0">
-                    {{ $subtitle }}
-                </h4>
-
-                <a href="#page_header" class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto" data-bs-toggle="collapse">
-                    <i class="ph-caret-down collapsible-indicator ph-sm m-1"></i>
-                </a>
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div
+            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 row-gap-4">
+            <div class="d-flex flex-column justify-content-center">
+                <h4 class="mb-1">{{ $title }} List</h4>
+                <p class="mb-6">{{ $subtitle }}</p>
             </div>
-
-            <div class="collapse d-lg-block my-lg-auto ms-lg-auto" id="page_header">
-                <div class="hstack gap-0 mb-3 mb-lg-0">
-                    <span class="menuoption"></span>
-                </div>
+            <div class="d-flex align-content-center flex-wrap gap-4">
+                <span class="menuoption"></span>
             </div>
         </div>
-    </div>
-    <!-- /page header -->
 
-
-    <!-- Content area -->
-    <div class="content pt-0">
         @include('layouts.alert')
+
         <div class="row">
             <div class="col-md-6">
-                <!-- Card -->
                 <div class="card">
-                    <div class="table-responsive">
-                        <table class="table table-xxs table-striped" id="dtable">
+                    <div class="card-datatable table-responsive">
+                        <table class="table table-xxs" id="dtable">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -50,18 +37,15 @@
                         </table>
                     </div>
                 </div>
-                <!-- /card -->
             </div>
             <div class="col-md-6" id="dynamic-form">
-                @can('add_users')
+                @can('users_add')
                     @include('user-setup.user.create')
                 @endcan
             </div>
 
         </div>
-
     </div>
-    <!-- /content area -->
 @endsection
 
 @section('customjs')
@@ -104,7 +88,13 @@
                 ],
                 "order": [
                     [0, "desc"]
-                ]
+                ],
+                "dom": '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>><"table-responsive"t><"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                }, ],
             });
             //set class for page length
             $("#dtable_length").addClass('d-none d-lg-block');
@@ -137,7 +127,8 @@
 
             //submit form create
             $("body").on("submit", "#dform", function(e) {
-                $(this).find('.submit_loader').removeAttr('class').addClass('ph-spinner spinner submit_loader');
+                $(this).find('.submit_loader').removeAttr('class').addClass(
+                    'ph-spinner spinner submit_loader');
             });
 
             $("body").on("click", ".editBtn", function(e) {

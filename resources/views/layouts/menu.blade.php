@@ -1,371 +1,110 @@
 <!-- Main navbar -->
-<div class="navbar navbar-expand-xl navbar-static shadow">
-    <div class="container-fluid">
-        <div class="flex-1">
-            <a href="{{ route('siteurl') }}" class="d-inline-flex align-items-center">
-                <span class="{{ env('APP_WARNA') }} logo-text ms-2 fw-semibold d-none d-sm-inline-block">{{ env('APP_NAME') }}</span>
-                <span class="{{ env('APP_WARNA') }} logo-text ms-2 fw-semibold d-inline-block d-sm-none">{{ substr(env('APP_NAME'), 0, 1) }}</span>
-            </a>
-        </div>
 
-        <div class="d-flex w-100 w-xl-auto overflow-auto overflow-xl-visible scrollbar-hidden border-top border-top-xl-0 order-1 order-xl-0 pt-2 pt-xl-0 mt-2 mt-xl-0">
-            <ul class="nav gap-1 justify-content-center flex-nowrap flex-xl-wrap mx-auto">
-                <li class="nav-item">
-                    <a href="{{ route('siteurl') }}" class="navbar-nav-link rounded {{ $title == 'Dashboard' ? 'active' : '' }}">
-                        <i class="ph-house me-2"></i>
-                        Dashboard
-                    </a>
-                </li>
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo">
+        <a href="{{ route('siteurl') }}" class="app-brand-link">
+            <span class="app-brand-logo demo">
+                <span style="color: var(--bs-primary)">
+                    <svg width="268" height="150" viewBox="0 0 38 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M30.0944 2.22569C29.0511 0.444187 26.7508 -0.172113 24.9566 0.849138C23.1623 1.87039 22.5536 4.14247 23.5969 5.92397L30.5368 17.7743C31.5801 19.5558 33.8804 20.1721 35.6746 19.1509C37.4689 18.1296 38.0776 15.8575 37.0343 14.076L30.0944 2.22569Z"
+                            fill="currentColor" />
+                        <path
+                            d="M30.171 2.22569C29.1277 0.444187 26.8274 -0.172113 25.0332 0.849138C23.2389 1.87039 22.6302 4.14247 23.6735 5.92397L30.6134 17.7743C31.6567 19.5558 33.957 20.1721 35.7512 19.1509C37.5455 18.1296 38.1542 15.8575 37.1109 14.076L30.171 2.22569Z"
+                            fill="url(#paint0_linear_2989_100980)" fill-opacity="0.4" />
+                        <path
+                            d="M22.9676 2.22569C24.0109 0.444187 26.3112 -0.172113 28.1054 0.849138C29.8996 1.87039 30.5084 4.14247 29.4651 5.92397L22.5251 17.7743C21.4818 19.5558 19.1816 20.1721 17.3873 19.1509C15.5931 18.1296 14.9843 15.8575 16.0276 14.076L22.9676 2.22569Z"
+                            fill="currentColor" />
+                        <path
+                            d="M14.9558 2.22569C13.9125 0.444187 11.6122 -0.172113 9.818 0.849138C8.02377 1.87039 7.41502 4.14247 8.45833 5.92397L15.3983 17.7743C16.4416 19.5558 18.7418 20.1721 20.5361 19.1509C22.3303 18.1296 22.9391 15.8575 21.8958 14.076L14.9558 2.22569Z"
+                            fill="currentColor" />
+                        <path
+                            d="M14.9558 2.22569C13.9125 0.444187 11.6122 -0.172113 9.818 0.849138C8.02377 1.87039 7.41502 4.14247 8.45833 5.92397L15.3983 17.7743C16.4416 19.5558 18.7418 20.1721 20.5361 19.1509C22.3303 18.1296 22.9391 15.8575 21.8958 14.076L14.9558 2.22569Z"
+                            fill="url(#paint1_linear_2989_100980)" fill-opacity="0.4" />
+                        <path
+                            d="M7.82901 2.22569C8.87231 0.444187 11.1726 -0.172113 12.9668 0.849138C14.7611 1.87039 15.3698 4.14247 14.3265 5.92397L7.38656 17.7743C6.34325 19.5558 4.04298 20.1721 2.24875 19.1509C0.454514 18.1296 -0.154233 15.8575 0.88907 14.076L7.82901 2.22569Z"
+                            fill="currentColor" />
+                        <defs>
+                            <linearGradient id="paint0_linear_2989_100980" x1="5.36642" y1="0.849138" x2="10.532"
+                                y2="24.104" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-opacity="1" />
+                                <stop offset="1" stop-opacity="0" />
+                            </linearGradient>
+                            <linearGradient id="paint1_linear_2989_100980" x1="5.19475" y1="0.849139" x2="10.3357"
+                                y2="24.1155" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-opacity="1" />
+                                <stop offset="1" stop-opacity="0" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </span>
+            </span>
+            <span class="app-brand-text demo menu-text fw-semibold ms-2">{{ env('APP_NAME') }}</span>
+        </a>
 
-                <li class="nav-item nav-item-dropdown">
-                    <a href="#" class="navbar-nav-link dropdown-toggle rounded" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                        <i class="ph-rows me-2"></i>
-                        Navigation
-                    </a>
-
-                    <div class="dropdown-menu p-0">
-                        <div class="d-xl-flex">
-                            <div class="d-flex flex-row flex-xl-column bg-light overflow-auto overflow-xl-visible rounded-top rounded-top-xl-0 rounded-start-xl">
-                                <div class="flex-1 border-bottom border-bottom-xl-0 p-2 p-xl-3">
-                                    <div class="fw-bold border-bottom d-none d-xl-block pb-2 mb-2">Navigation</div>
-                                    <ul class="nav nav-pills flex-xl-column flex-nowrap text-nowrap justify-content-center wmin-xl-300" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <a href="#tab_page" class="nav-link rounded active" data-bs-toggle="tab" aria-selected="true" role="tab">
-                                                <i class="ph-layout me-2"></i>
-                                                Page
-                                                <i class="ph-arrow-right nav-item-active-indicator d-none d-xl-inline-block ms-auto"></i>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a href="#tab_navbars" class="nav-link rounded" data-bs-toggle="tab" aria-selected="false" tabindex="-1" role="tab">
-                                                <i class="ph-rows me-2"></i>
-                                                Navbars
-                                                <i class="ph-arrow-right nav-item-active-indicator d-none d-xl-inline-block ms-auto"></i>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a href="#tab_sidebar_types" class="nav-link rounded" data-bs-toggle="tab" aria-selected="false" tabindex="-1" role="tab">
-                                                <i class="ph-columns me-2"></i>
-                                                Sidebar types
-                                                <i class="ph-arrow-right nav-item-active-indicator d-none d-xl-inline-block ms-auto"></i>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a href="#tab_sidebar_content" class="nav-link rounded" data-bs-toggle="tab" aria-selected="false" tabindex="-1" role="tab">
-                                                <i class="ph-sidebar-simple me-2"></i>
-                                                Sidebar content
-                                                <i class="ph-arrow-right nav-item-active-indicator d-none d-xl-inline-block ms-auto"></i>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a href="#tab_navigation" class="nav-link rounded" data-bs-toggle="tab" aria-selected="false" tabindex="-1" role="tab">
-                                                <i class="ph-list-dashes me-2"></i>
-                                                Navigation
-                                                <i class="ph-arrow-right nav-item-active-indicator d-none d-xl-inline-block ms-auto"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="tab-content flex-xl-1">
-                                <div class="tab-pane dropdown-scrollable-xl fade show active p-3" id="tab_page" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-lg-4 mb-3 mb-lg-0">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Sections</div>
-                                            <a href="layout_no_header.html" class="dropdown-item rounded">No header</a>
-                                            <a href="layout_no_footer.html" class="dropdown-item rounded">No footer</a>
-                                            <a href="layout_fixed_header.html" class="dropdown-item rounded">Fixed header</a>
-                                            <a href="layout_fixed_footer.html" class="dropdown-item rounded">Fixed footer</a>
-                                        </div>
-
-                                        <div class="col-lg-4 mb-3 mb-lg-0">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Sidebars</div>
-                                            <a href="layout_2_sidebars_1_side.html" class="dropdown-item rounded">2 sidebars on 1 side</a>
-                                            <a href="layout_2_sidebars_2_sides.html" class="dropdown-item rounded">2 sidebars on 2 sides</a>
-                                            <a href="layout_3_sidebars.html" class="dropdown-item rounded">3 sidebars</a>
-                                        </div>
-
-                                        <div class="col-lg-4">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Layout</div>
-                                            <a href="layout_static.html" class="dropdown-item rounded">Static layout</a>
-                                            <a href="layout_boxed_page.html" class="dropdown-item rounded">Boxed page</a>
-                                            <a href="layout_liquid_content.html" class="dropdown-item rounded">Liquid content</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane dropdown-scrollable-xl fade p-3" id="tab_navbars" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-lg-3 mb-3 mb-lg-0">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Single</div>
-                                            <a href="navbar_single_top_static.html" class="dropdown-item rounded">Top static</a>
-                                            <a href="navbar_single_top_fixed.html" class="dropdown-item rounded">Top fixed</a>
-                                            <a href="navbar_single_bottom_static.html" class="dropdown-item rounded">Bottom static</a>
-                                            <a href="navbar_single_bottom_fixed.html" class="dropdown-item rounded">Bottom fixed</a>
-                                        </div>
-
-                                        <div class="col-lg-3 mb-3 mb-lg-0">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Multiple</div>
-                                            <a href="navbar_multiple_top_static.html" class="dropdown-item rounded">Top static</a>
-                                            <a href="navbar_multiple_top_fixed.html" class="dropdown-item rounded">Top fixed</a>
-                                            <a href="navbar_multiple_bottom_static.html" class="dropdown-item rounded">Bottom static</a>
-                                            <a href="navbar_multiple_bottom_fixed.html" class="dropdown-item rounded">Bottom fixed</a>
-                                            <a href="navbar_multiple_top_bottom_fixed.html" class="dropdown-item rounded">Top and bottom fixed</a>
-                                        </div>
-
-                                        <div class="col-lg-3 mb-3 mb-lg-0">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Content</div>
-                                            <a href="navbar_component_single.html" class="dropdown-item rounded">Single navbar</a>
-                                            <a href="navbar_component_multiple.html" class="dropdown-item rounded">Multiple navbars</a>
-                                        </div>
-
-                                        <div class="col-lg-3">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Other</div>
-                                            <a href="navbar_colors.html" class="dropdown-item rounded">Color options</a>
-                                            <a href="navbar_sizes.html" class="dropdown-item rounded">Sizing options</a>
-                                            <a href="navbar_components.html" class="dropdown-item rounded">Navbar components</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane dropdown-scrollable-xl fade p-3" id="tab_sidebar_types" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-lg-3 mb-3 mb-lg-0">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Main</div>
-                                            <a href="sidebar_default_resizable.html" class="dropdown-item rounded">Resizable</a>
-                                            <a href="sidebar_default_resized.html" class="dropdown-item rounded">Resized</a>
-                                            <a href="sidebar_default_collapsible.html" class="dropdown-item rounded">Collapsible</a>
-                                            <a href="sidebar_default_collapsed.html" class="dropdown-item rounded">Collapsed</a>
-                                            <a href="sidebar_default_hideable.html" class="dropdown-item rounded">Hideable</a>
-                                            <a href="sidebar_default_hidden.html" class="dropdown-item rounded">Hidden</a>
-                                            <a href="sidebar_default_color_dark.html" class="dropdown-item rounded">Dark color</a>
-                                        </div>
-
-                                        <div class="col-lg-3 mb-3 mb-lg-0">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Secondary</div>
-                                            <a href="sidebar_secondary_collapsible.html" class="dropdown-item rounded">Collapsible</a>
-                                            <a href="sidebar_secondary_collapsed.html" class="dropdown-item rounded">Collapsed</a>
-                                            <a href="sidebar_secondary_hideable.html" class="dropdown-item rounded">Hideable</a>
-                                            <a href="sidebar_secondary_hidden.html" class="dropdown-item rounded">Hidden</a>
-                                            <a href="sidebar_secondary_color_dark.html" class="dropdown-item rounded">Dark color</a>
-                                        </div>
-
-                                        <div class="col-lg-3 mb-3 mb-lg-0">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Right</div>
-                                            <a href="sidebar_right_collapsible.html" class="dropdown-item rounded">Collapsible</a>
-                                            <a href="sidebar_right_collapsed.html" class="dropdown-item rounded">Collapsed</a>
-                                            <a href="sidebar_right_hideable.html" class="dropdown-item rounded">Hideable</a>
-                                            <a href="sidebar_right_hidden.html" class="dropdown-item rounded">Hidden</a>
-                                            <a href="sidebar_right_color_dark.html" class="dropdown-item rounded">Dark color</a>
-                                        </div>
-
-                                        <div class="col-lg-3">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Content</div>
-                                            <a href="sidebar_content_left.html" class="dropdown-item rounded">Left aligned</a>
-                                            <a href="sidebar_content_left_stretch.html" class="dropdown-item rounded">Left stretched</a>
-                                            <a href="sidebar_content_left_sections.html" class="dropdown-item rounded">Left sectioned</a>
-                                            <a href="sidebar_content_right.html" class="dropdown-item rounded">Right aligned</a>
-                                            <a href="sidebar_content_right_stretch.html" class="dropdown-item rounded">Right stretched</a>
-                                            <a href="sidebar_content_right_sections.html" class="dropdown-item rounded">Right sectioned</a>
-                                            <a href="sidebar_content_color_dark.html" class="dropdown-item rounded">Dark color</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane dropdown-scrollable-xl fade p-3" id="tab_sidebar_content" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-lg-6 mb-3 mb-lg-0">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Sticky areas</div>
-                                            <a href="sidebar_sticky_header.html" class="dropdown-item rounded">Header</a>
-                                            <a href="sidebar_sticky_footer.html" class="dropdown-item rounded">Footer</a>
-                                            <a href="sidebar_sticky_header_footer.html" class="dropdown-item rounded">Header and footer</a>
-                                            <a href="sidebar_sticky_custom.html" class="dropdown-item rounded">Custom elements</a>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Other</div>
-                                            <a href="sidebar_components.html" class="dropdown-item rounded">Sidebar components</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane dropdown-scrollable-xl fade p-3" id="tab_navigation" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-lg-6 mb-3 mb-lg-0">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Vertical</div>
-                                            <a href="navigation_vertical_styles.html" class="dropdown-item rounded">Navigation styles</a>
-                                            <a href="navigation_vertical_collapsible.html" class="dropdown-item rounded">Collapsible menu</a>
-                                            <a href="navigation_vertical_accordion.html" class="dropdown-item rounded">Accordion menu</a>
-                                            <a href="navigation_vertical_bordered.html" class="dropdown-item rounded">Bordered navigation</a>
-                                            <a href="navigation_vertical_right_icons.html" class="dropdown-item rounded">Right icons</a>
-                                            <a href="navigation_vertical_badges.html" class="dropdown-item rounded">Badges</a>
-                                            <a href="navigation_vertical_disabled.html" class="dropdown-item rounded">Disabled items</a>
-                                        </div>
-
-                                        <div class="col-lg-6">
-                                            <div class="fw-bold border-bottom pb-2 mb-2">Horizontal</div>
-                                            <a href="navigation_horizontal_styles.html" class="dropdown-item rounded">Navigation styles</a>
-                                            <a href="navigation_horizontal_elements.html" class="dropdown-item rounded">Navigation elements</a>
-                                            <a href="navigation_horizontal_tabs.html" class="dropdown-item rounded">Tabbed navigation</a>
-                                            <a href="navigation_horizontal_disabled.html" class="dropdown-item rounded">Disabled items</a>
-                                            <a href="navigation_horizontal_mega.html" class="dropdown-item rounded">Mega menu</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="nav-item nav-item-dropdown-xl dropdown">
-                    <a href="#" class="navbar-nav-link dropdown-toggle rounded {{ in_array($title, ['Permissions', 'Roles', 'User']) ? 'active' : '' }}" data-bs-toggle="dropdown">
-                        <i class="ph-gear me-2"></i>
-                        Setup
-                    </a>
-
-                    <div class="dropdown-menu">
-                        <div class="dropdown-header">Access Control</div>
-                        @can('view_permimssions')
-                            <a href="{{ route('permission') }}" class="dropdown-item {{ $title == 'Permissions' ? 'active' : '' }}">
-                                <i class="ph-gear-six me-2"></i>
-                                Permissions
-                            </a>
-                        @endcan
-                        @can('view_roles')
-                            <a href="{{ route('role') }}" class="dropdown-item {{ $title == 'Roles' ? 'active' : '' }}">
-                                <i class="ph-user-gear me-2"></i>
-                                Roles
-                            </a>
-                        @endcan
-                        @can('view_users')
-                            <a href="{{ route('user-setup.user.index') }}" class="dropdown-item {{ $title == 'User' ? 'active' : '' }}">
-                                <i class="ph-users me-2"></i>
-                                Users
-                            </a>
-                        @endcan
-                    </div>
-                </li>
-
-            </ul>
-        </div>
-
-        <ul class="nav gap-1 flex-xl-1 justify-content-end order-0 order-xl-1">
-            <li class="nav-item nav-item-dropdown-xl dropdown">
-                <a href="#" class="navbar-nav-link navbar-nav-link-icon rounded-pill" data-bs-toggle="dropdown">
-                    <i class="ph-squares-four"></i>
-                </a>
-
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-scrollable-sm wmin-lg-600 p-0">
-                    <div class="d-flex align-items-center border-bottom p-3">
-                        <h6 class="mb-0">Browse apps</h6>
-                        <a href="#" class="ms-auto">
-                            View all
-                            <i class="ph-arrow-circle-right ms-1"></i>
-                        </a>
-                    </div>
-
-                    <div class="row row-cols-1 row-cols-sm-2 g-0">
-                        <div class="col">
-                            <button type="button" class="dropdown-item text-wrap h-100 align-items-start border-end-sm border-bottom p-3">
-                                <div>
-                                    <img src="{{ asset('assets/images/demo/logos/1.svg') }}" class="h-40px mb-2" alt="">
-                                    <div class="fw-semibold my-1">Customer data platform</div>
-                                    <div class="text-muted">Unify customer data from multiple sources</div>
-                                </div>
-                            </button>
-                        </div>
-
-                        <div class="col">
-                            <button type="button" class="dropdown-item text-wrap h-100 align-items-start border-bottom p-3">
-                                <div>
-                                    <img src="{{ asset('assets/images/demo/logos/2.svg') }}" class="h-40px mb-2" alt="">
-                                    <div class="fw-semibold my-1">Data catalog</div>
-                                    <div class="text-muted">Discover, inventory, and organize data assets</div>
-                                </div>
-                            </button>
-                        </div>
-
-                        <div class="col">
-                            <button type="button" class="dropdown-item text-wrap h-100 align-items-start border-end-sm border-bottom border-bottom-sm-0 rounded-bottom-start p-3">
-                                <div>
-                                    <img src="{{ asset('assets/images/demo/logos/3.svg') }}" class="h-40px mb-2" alt="">
-                                    <div class="fw-semibold my-1">Data governance</div>
-                                    <div class="text-muted">The collaboration hub and data marketplace</div>
-                                </div>
-                            </button>
-                        </div>
-
-                        <div class="col">
-                            <button type="button" class="dropdown-item text-wrap h-100 align-items-start rounded-bottom-end p-3">
-                                <div>
-                                    <img src="{{ asset('assets/images/demo/logos/4.svg') }}" class="h-40px mb-2" alt="">
-                                    <div class="fw-semibold my-1">Data privacy</div>
-                                    <div class="text-muted">Automated provisioning of non-production datasets</div>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="navbar-nav-link navbar-nav-link-icon rounded-pill" data-bs-toggle="offcanvas" data-bs-target="#notifications">
-                    <i class="ph-bell"></i>
-                    <span class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">2</span>
-                </a>
-            </li>
-
-            <li class="nav-item nav-item-dropdown-xl dropdown">
-                <a href="#" class="navbar-nav-link align-items-center rounded-pill p-1 avatar-custom" data-bs-toggle="dropdown">
-                    <div class="status-indicator-container status-indicator-container-custom">
-                        <img src="{{ asset('assets/images/placeholder.jpg') }}" class="w-32px h-32px rounded-pill" alt="">
-                        <span class="status-indicator status-indicator-custom bg-success"></span>
-                    </div>
-                    <span class="d-none d-md-inline-block mx-md-2">{{ auth()->user()->name ?? '' }}</span>
-                </a>
-
-                <div class="dropdown-menu dropdown-menu-end">
-                    <label href="#" class="dropdown-item cursor-pointer" for="sc_ls_c">
-                        <i class="ph-moon me-2"></i>
-                        Dark Theme
-                        <div class="form-check form-switch form-check-reverse ms-auto">
-                            <input type="checkbox" class="form-check-input" id="sc_ls_c" onchange="setTheme(this)">
-                        </div>
-                    </label>
-
-                    <a href="#" class="dropdown-item">
-                        <i class="ph-user-circle me-2"></i>
-                        My profile
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ph-currency-circle-dollar me-2"></i>
-                        My subscription
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ph-shopping-cart me-2"></i>
-                        My orders
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ph-envelope-open me-2"></i>
-                        My inbox
-                        <span class="badge bg-primary rounded-pill ms-auto">26</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ route('permission.list') }}" class="dropdown-item"><i class="ph-user-list me-2"></i>
-                        Permissions List</a>
-                    <a href="#!" onclick="changepassword('{{ route('changepassword') }}')" class="dropdown-item"><i class="ph-lock-key me-2"></i> Change Password</a>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();" class="dropdown-item"> <i class="ph-sign-out me-2"></i>
-                        Logout</a>
-                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
-                    <form id="frm-toggle-theme" action="{{ route('toggle.theme') }}" method="GET" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
-                </div>
-            </li>
-        </ul>
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M8.47365 11.7183C8.11707 12.0749 8.11707 12.6531 8.47365 13.0097L12.071 16.607C12.4615 16.9975 12.4615 17.6305 12.071 18.021C11.6805 18.4115 11.0475 18.4115 10.657 18.021L5.83009 13.1941C5.37164 12.7356 5.37164 11.9924 5.83009 11.5339L10.657 6.707C11.0475 6.31653 11.6805 6.31653 12.071 6.707C12.4615 7.09747 12.4615 7.73053 12.071 8.121L8.47365 11.7183Z"
+                    fill-opacity="0.9" />
+                <path
+                    d="M14.3584 11.8336C14.0654 12.1266 14.0654 12.6014 14.3584 12.8944L18.071 16.607C18.4615 16.9975 18.4615 17.6305 18.071 18.021C17.6805 18.4115 17.0475 18.4115 16.657 18.021L11.6819 13.0459C11.3053 12.6693 11.3053 12.0587 11.6819 11.6821L16.657 6.707C17.0475 6.31653 17.6805 6.31653 18.071 6.707C18.4615 7.09747 18.4615 7.73053 18.071 8.121L14.3584 11.8336Z"
+                    fill-opacity="0.4" />
+            </svg>
+        </a>
     </div>
-</div>
+
+    <div class="menu-inner-shadow"></div>
+
+    <ul class="menu-inner py-1">
+        <!-- Dashboards -->
+        <li class="menu-item {{ $title == 'Dashboard' ? 'active' : '' }}">
+            <a href="{{ route('siteurl') }}" class="menu-link">
+                <i class="menu-icon tf-icons ri-home-smile-line"></i>
+                <div data-i18n="Dashboards">Dashboards</div>
+            </a>
+        </li>
+
+        {{-- Setup --}}
+        @canany(['view_permimssions', 'view_roles', 'view_users'])
+            <li class="menu-header mt-5">
+                <span class="menu-header-text" data-i18n="Setup">Setup</span>
+            </li>
+            <li class="menu-item {{ in_array($title, ['Permission', 'Role', 'User']) ? 'active open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ri-shield-keyhole-line"></i>
+                    <div data-i18n="Setup">Setup</div>
+                </a>
+                <ul class="menu-sub">
+                    @can('view_permimssions')
+                        <li class="menu-item {{ $title == 'Permission' ? 'active' : '' }}">
+                            <a href="{{ route('user-setup.permission.index') }}" class="menu-link">
+                                <div data-i18n="Permission">Permission</div>
+                            </a>
+                        </li>
+                    @endcan
+
+                    @can('view_roles')
+                        <li class="menu-item {{ $title == 'Role' ? 'active' : '' }}">
+                            <a href="{{ route('user-setup.role.index') }}" class="menu-link">
+                                <div data-i18n="Roles">Roles</div>
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view_users')
+                        <li class="menu-item {{ $title == 'User' ? 'active' : '' }}">
+                            <a href="{{ route('user-setup.user.index') }}" class="menu-link">
+                                <div data-i18n="User">User</div>
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcanany
+
+        {{-- Setup --}}
+
+    </ul>
+</aside>
 <!-- /main navbar -->
