@@ -51,7 +51,7 @@
 @section('customjs')
     <script type="text/javascript">
         var dtable;
-        const urlAjax = '{{ route('get.user') }}';
+        const urlAjax = '{{ route('user-setup.user.get-data') }}';
         const getButtonOption = '{{ route('get.button-option') }}';
         const buttons = {!! json_encode(['vedit' => $url['edit'], 'destroy' => $url['destroy']]) !!};
         var html_temp = $("#dynamic-form").html();

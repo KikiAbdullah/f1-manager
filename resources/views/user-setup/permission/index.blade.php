@@ -24,7 +24,7 @@
                         <table class="table table-xxs" id="dtable">
                             <thead>
                                 <tr>
-                                    <th width="10%">ID</th>
+                                    <th>ID</th>
                                     <th>Name</th>
                                     <th width="40%">Created At</th>
                                 </tr>
@@ -50,7 +50,7 @@
         var dtable;
         const urlAjax = '{{ route('user-setup.permission.get-data') }}';
         const getButtonOption = '{{ route('get.button-option') }}';
-        const buttons = {!! json_encode([]) !!};
+        const buttons = {!! json_encode(['vedit' => $url['edit']]) !!};
         var html_temp = $("#dynamic-form").html();
         var button_temp =
             '<a href="#!" class="btn flex-column btn-float py-2 mx-2 text-uppercase text-dark fw-semibold btnBack"><i class="ph-caret-left ph-2x text-indigo"></i>CANCEL</a>';
@@ -87,6 +87,7 @@
                     "searchable": false
                 }, ],
             });
+
             //set class for page length
             $("#dtable_length").addClass('d-none d-lg-block');
 

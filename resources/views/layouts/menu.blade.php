@@ -67,43 +67,52 @@
         </li>
 
         {{-- Setup --}}
-        @canany(['view_permimssions', 'view_roles', 'view_users'])
+        @canany(['permimssions_view', 'roles_view', 'users_view', 'debug_view'])
             <li class="menu-header mt-5">
                 <span class="menu-header-text" data-i18n="Setup">Setup</span>
             </li>
-            <li class="menu-item {{ in_array($title, ['Permission', 'Role', 'User']) ? 'active open' : '' }}">
+            <li class="menu-item {{ in_array($title, ['Permission', 'Role', 'User', 'Log Viewer']) ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ri-shield-keyhole-line"></i>
                     <div data-i18n="Setup">Setup</div>
                 </a>
                 <ul class="menu-sub">
-                    @can('view_permimssions')
+                    @can('permimssions_view')
                         <li class="menu-item {{ $title == 'Permission' ? 'active' : '' }}">
                             <a href="{{ route('user-setup.permission.index') }}" class="menu-link">
                                 <div data-i18n="Permission">Permission</div>
                             </a>
                         </li>
                     @endcan
-
-                    @can('view_roles')
+                    @can('roles_view')
                         <li class="menu-item {{ $title == 'Role' ? 'active' : '' }}">
                             <a href="{{ route('user-setup.role.index') }}" class="menu-link">
-                                <div data-i18n="Roles">Roles</div>
+                                <div data-i18n="Role">Role</div>
                             </a>
                         </li>
                     @endcan
-                    @can('view_users')
+                    @can('users_view')
                         <li class="menu-item {{ $title == 'User' ? 'active' : '' }}">
                             <a href="{{ route('user-setup.user.index') }}" class="menu-link">
                                 <div data-i18n="User">User</div>
                             </a>
                         </li>
                     @endcan
+
+
                 </ul>
             </li>
         @endcanany
-
         {{-- Setup --}}
+
+        @can('debug_view')
+            <li class="menu-item {{ $title == 'Log Viewer' ? 'active' : '' }}">
+                <a href="{{ route('debug.log-viewer.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ri-error-warning-line text-danger"></i>
+                    <div data-i18n="Log Viewer">Log Viewer</div>
+                </a>
+            </li>
+        @endcan
 
     </ul>
 </aside>

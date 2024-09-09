@@ -20,7 +20,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', 'AppController@index')->name('siteurl');
 
         Route::group(['prefix' => 'user-setup', 'as' => 'user-setup.'], function () {
-
             ///PERMISSIONS
             Route::group(['prefix' => 'permission', 'as' => 'permission.', 'middleware' => 'can:permissions_view'], function () {
                 Route::get('get-data', 'PermissionController@ajaxData')->name('get-data');
@@ -34,12 +33,18 @@ Route::group(['middleware' => ['auth']], function () {
             ///ROLES
 
             ///USERS
-            Route::group(['prefix' => 'role', 'as' => 'role.', 'middleware' => 'can:users_view'], function () {});
+            Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'can:users_view'], function () {
+                Route::get('get-data', 'UserController@ajaxData')->name('get-data');
+            });
             Route::resource('user', 'UserController')->middleware('can:users_view');
             ///USERS
         });
-        Route::get('/listuser', 'UserController@ajaxData')->name('get.user')->middleware('can:view_users');
 
+        Route::group(['prefix' => 'debug', 'as' => 'debug.'], function () {
+            //LOG VIEWER
+            Route::get('log-viewer',    'LogViewerController@index')->name('log-viewer.index');
+            //LOG VIEWER
+        });
         //others
         Route::get('get-button-option', 'AjaxController@getButtonOption')->name('get.button-option');
         // Route::post('changepassword', 'AppController@changepassword')->name('changepassword');
