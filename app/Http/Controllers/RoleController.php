@@ -124,9 +124,11 @@ class RoleController extends Controller
                 $model->revokePermissionTo($permission->name);
             }
 
-            $permissions = Permission::whereIn('id', array_keys($data['permission']))->pluck('name');
-            foreach ($permissions as $permission) {
-                $model->givePermissionTo($permission);
+            if (!empty($data['permission'])) {
+                $permissions = Permission::whereIn('id', array_keys($data['permission']))->pluck('name');
+                foreach ($permissions as $permission) {
+                    $model->givePermissionTo($permission);
+                }
             }
 
             $log_helper     = new LogHelper;

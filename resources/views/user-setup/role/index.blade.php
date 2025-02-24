@@ -27,17 +27,30 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="role-heading">
                                     <h5 class="mb-1">{{ $role->name ?? '' }}</h5>
-
-                                    @if ($role->name != 'SUPERADMIN')
-                                        <a href="{{ route('user-setup.role.edit', $role->id) }}"
-                                            onclick="editRole(this, event)" class="role-edit-modal">
-                                            Edit Role
-                                        </a>
-                                    @else
-                                        <a href="#">&nbsp;</a>
-                                    @endif
                                 </div>
                             </div>
+
+                            @if ($role->name != 'SUPERADMIN')
+                                <div class="d-flex justify-content-between">
+                                    <a href="{{ route('user-setup.role.edit', $role->id) }}" onclick="editRole(this, event)"
+                                        class="role-edit-modal">
+                                        Edit Role
+                                    </a>
+
+                                    {!! Form::open([
+                                        'route' => ['user-setup.role.destroy', $role->id],
+                                        'method' => 'DELETE',
+                                        'class' => 'delete',
+                                        'style' => 'display: contents',
+                                    ]) !!}
+                                    <a href="#" class="text-danger deleteBtn">
+                                        <i class="ri-close-circle-line"></i>
+                                    </a>
+                                    {!! Form::close() !!}
+                                </div>
+                            @else
+                                <a href="#">&nbsp;</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -127,5 +140,33 @@
             });
             e.preventDefault();
         }
+
+        $('body').on('click', '.deleteBtn', function(e) {
+            var form = $(this).parents('form.delete');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Are you sure delete this {{ $title }}?',
+                showCancelButton: true,
+                confirmButtonText: 'Confirm',
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-light',
+                    input: 'form-control'
+                },
+                reverseButtons: true,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        text: 'Loading..',
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                    form.submit();
+                }
+            })
+            e.preventDefault();
+        });
     </script>
 @endsection

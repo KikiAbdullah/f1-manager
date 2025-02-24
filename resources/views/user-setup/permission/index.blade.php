@@ -157,7 +157,6 @@
                     customClass: {
                         confirmButton: 'btn btn-primary',
                         cancelButton: 'btn btn-light',
-                        denyButton: 'btn btn-light',
                         input: 'form-control'
                     },
                     reverseButtons: true,
