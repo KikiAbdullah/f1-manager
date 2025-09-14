@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="col-md-6" id="dynamic-form">
-                @can('permissions_view')
+                @can('permissions_create')
                     @include('user-setup.permission.create')
                 @endcan
             </div>
@@ -53,7 +53,7 @@
         const buttons = {!! json_encode(['vedit' => $url['edit']]) !!};
         var html_temp = $("#dynamic-form").html();
         var button_temp =
-            '<a href="#!" class="btn flex-column btn-float py-2 mx-2 text-uppercase text-dark fw-semibold btnBack"><i class="ph-caret-left ph-2x text-indigo"></i>CANCEL</a>';
+            '<a href="#!" class="action-link-icon-text text-warning btnBack"><i class="ri-arrow-left-s-line"></i><span class="fw-semibold text-uppercase">Kembali</span></a>';
 
         $(document).ready(function($) {
             dtable = $('#dtable').DataTable({
@@ -100,7 +100,7 @@
                     url: getButtonOption,
                     data: {
                         id: id,
-                        buttons: buttons,
+                        btn: buttons,
                     },
                     success: function(response) {
                         if (response.status) {

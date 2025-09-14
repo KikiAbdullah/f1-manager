@@ -48,6 +48,36 @@ Route::group(['middleware' => ['auth']], function () {
         //others
         Route::get('get-button-option', 'AjaxController@getButtonOption')->name('get.button-option');
         // Route::post('changepassword', 'AppController@changepassword')->name('changepassword');
+
+
+        ///MASTERS
+        Route::group(['prefix' => 'master', 'as' => 'master.'], function () {
+            ///MESIN
+            Route::group(['prefix' => 'mesin', 'as' => 'mesin.', 'middleware' => 'can:mesin_view'], function () {
+                Route::get('get-data', 'MesinController@ajaxData')->name('get-data');
+            });
+            Route::resource('mesin', 'MesinController')->middleware('can:mesin_view');
+            ///MESIN
+        });
+        ///MASTERS
+
+
+        ///gameplay
+        Route::group(['prefix' => 'gameplay', 'as' => 'gameplay.'], function () {
+            Route::get('', 'GameplayController@index')->name('index');
+            Route::get('drivers', 'GameplayController@drivers')->name('drivers');
+            Route::get('staffs', 'GameplayController@staffs')->name('staffs');
+            Route::get('cars', 'GameplayController@cars')->name('cars');
+            Route::get('finances', 'GameplayController@finances')->name('finances');
+
+            Route::group(['prefix' => 'schedules', 'as' => 'schedules.'], function () {
+                Route::get('/', 'GameplayController@schedules')->name('index');
+                Route::get('detail/{id}', 'GameplayController@schedulesDetail')->name('detail');
+                Route::get('qualifying/{id}', 'RaceController@qualifying')->name('qualifying');
+                Route::get('race/{id}', 'RaceController@race')->name('race');
+            });
+        });
+        ///gameplay
     });
 
     Route::get('2fa', 'TwoFactorController@showTwoFactorForm');

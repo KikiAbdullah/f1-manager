@@ -7,15 +7,15 @@ use Illuminate\Http\Request;
 
 class AjaxController extends Controller
 {
-    public function getButtonOption(Request $request)
-    {
-    	$data 		= $request->all();
+	public function getButtonOption(Request $request)
+	{
+		$data 		= $request->all();
 
-    	$view 		= [
-    		'status' 			=> true,
-    		'view' 				=> view('layouts.button_option')->with(['id' => $data['id'],'url' => $data['buttons']])->render()
-    	];
+		$view 		= [
+			'status' 			=> true,
+			'view' 				=> view('layouts.button_option')->with(['id' => $data['id'], 'btn' => $data['btn']])->render()
+		];
 
-    	return response()->json($view);
-    }
+		return response()->json($view);
+	}
 }

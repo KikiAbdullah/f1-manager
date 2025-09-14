@@ -32,21 +32,33 @@
 
                             @if ($role->name != 'SUPERADMIN')
                                 <div class="d-flex justify-content-between">
-                                    <a href="{{ route('user-setup.role.edit', $role->id) }}" onclick="editRole(this, event)"
-                                        class="role-edit-modal">
-                                        Edit Role
-                                    </a>
+                                    @can('roles_edit')
+                                        <a href="{{ route('user-setup.role.edit', $role->id) }}" onclick="editRole(this, event)"
+                                            class="role-edit-modal">
+                                            Edit Role
+                                        </a>
+                                    @elsecan('roles_delete')
+                                        {{-- This block is intentionally left empty if only roles_delete is available --}}
+                                    @else
+                                        <a href="#">&nbsp;</a>
+                                    @endcan
 
-                                    {!! Form::open([
-                                        'route' => ['user-setup.role.destroy', $role->id],
-                                        'method' => 'DELETE',
-                                        'class' => 'delete',
-                                        'style' => 'display: contents',
-                                    ]) !!}
-                                    <a href="#" class="text-danger deleteBtn">
-                                        <i class="ri-close-circle-line"></i>
-                                    </a>
-                                    {!! Form::close() !!}
+                                    @can('roles_delete')
+                                        {!! Form::open([
+                                            'route' => ['user-setup.role.destroy', $role->id],
+                                            'method' => 'DELETE',
+                                            'class' => 'delete',
+                                            'style' => 'display: contents',
+                                        ]) !!}
+                                        <a href="#" class="text-danger deleteBtn">
+                                            <i class="ri-close-circle-line"></i>
+                                        </a>
+                                        {!! Form::close() !!}
+                                    @elsecan('roles_edit')
+                                        {{-- This block is intentionally left empty if only roles_edit is available --}}
+                                    @else
+                                        {{-- The <a href="#">&nbsp;</a> will already be rendered by the first @can block if neither permission is present --}}
+                                    @endcan
                                 </div>
                             @else
                                 <a href="#">&nbsp;</a>
@@ -56,30 +68,32 @@
                 </div>
             @endforeach
 
-            <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="card h-100">
-                    <div class="row h-100">
-                        <div class="col-5">
-                            <div class="d-flex align-items-end h-100 justify-content-center">
-                                <img src="{{ asset('asset_materialize/img/illustrations/add-new-role-illustration.png') }}"
-                                    class="img-fluid" alt="Image" width="68" />
+            @can('roles_add')
+                <div class="col-xl-4 col-lg-6 col-md-6">
+                    <div class="card h-100">
+                        <div class="row h-100">
+                            <div class="col-5">
+                                <div class="d-flex align-items-end h-100 justify-content-center">
+                                    <img src="{{ asset('asset_materialize/img/illustrations/add-new-role-illustration.png') }}"
+                                        class="img-fluid" alt="Image" width="68" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-7">
-                            <div class="card-body text-sm-end text-center ps-sm-0">
-                                <button onclick="addRole(this, event)"
-                                    class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role">
-                                    Add Role
-                                </button>
-                                <p class="mb-0">
-                                    Add new role,<br />
-                                    if it doesn't exist
-                                </p>
+                            <div class="col-7">
+                                <div class="card-body text-sm-end text-center ps-sm-0">
+                                    <button onclick="addRole(this, event)"
+                                        class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role">
+                                        Add Role
+                                    </button>
+                                    <p class="mb-0">
+                                        Add new role,<br />
+                                        if it doesn't exist
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endcan
         </div>
         <!--/ Role cards -->
     </div>
